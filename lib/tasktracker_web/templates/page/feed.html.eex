@@ -1,0 +1,30 @@
+<%= if @current_user do %>
+
+<div class="float-right"><h4><%= link "Create New Task", to: task_path(@conn, :new) %></h4>
+</div>
+<% end %>
+
+<h1>Your Task Feed</h1>
+
+<%= Enum.map @tasks, fn task -> %>
+<div class="row">
+  <div class="col">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-title"><b>Created by: </b><i><%= task.user.name %></i></h6>
+        <p>
+          <div  class="alert alert-success">
+          <h5>Task: </h5>
+          <b>Title:</b>
+          <%= task.title %><br>
+          <b>Description: </b>
+          <%= task.description %>
+        </p>
+      </div>
+        <h6 class="card-title"><b>Assigned to : </b><i> todo</i></h6>
+
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>

@@ -1,6 +1,18 @@
-<div class="row">
-  <div class="col">
-    <h1>Task Tracker</h1>
-    <p>Loading..</p>
+<h1>Task Tracker</h1>
+<div class="jumbotron">
+  <h2>Log In</h2>
+  <!-- session_path(@conn, :create) -->
+  <%= form_tag("/session", method: :post) do %>
+  <div class="form-group">
+    <label for="usr">User Name:</label>
+    <input type="text"  class="form-control" id="usr" name="name" placeholder="Try entering a user name" >
   </div>
+  <!-- passwords come later -->
+  <div class="form-group">
+    <button class="btn btn-primary">Log in</button>
+
+    <%= link "Register", to: user_path(@conn, :new) %>
+
+  </div>
+  <% end %>
 </div>
