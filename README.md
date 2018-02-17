@@ -1,9 +1,14 @@
+<<<<<<< HEAD
 # TaskTracker
 Task Tracker Web Application.
 Using
   -ReactJS,
   -Elixir with Phoenix Framework,
   -postgres
+=======
+
+# Tasktracker
+>>>>>>> ae6e93956a67c5c7c57dc631b147a729fb0155b3
 
 To start your Phoenix server:
 
