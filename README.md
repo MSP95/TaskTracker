@@ -1,5 +1,5 @@
 
-# Tasktracker app
+# Tasktracker
 
 To start your Phoenix server:
 
