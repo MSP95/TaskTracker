@@ -1,5 +1,9 @@
-
-# Tasktracker app
+# TaskTracker
+Task Tracker Web Application.
+Using
+  -ReactJS,
+  -Elixir with Phoenix Framework,
+  -postgres
 
 To start your Phoenix server:
 
@@ -20,9 +24,3 @@ Ready to run in production? Please [check our deployment guides](http://www.phoe
   * Mailing list: http://groups.google.com/group/phoenix-talk
   * Source: https://github.com/phoenixframework/phoenix
 =======
-# TaskTracker
-Task Tracker Web Application.
-Using
-  -ReactJS,
-  -Elixir with Phoenix Framework,
-  -postgres
