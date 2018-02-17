@@ -6,8 +6,15 @@ defmodule TasktrackerWeb.PageController do
   end
   def feed(conn, _params) do
     tasks = Tasktracker.Social.list_tasks()
+    tracks = Tasktracker.Tracker.list_tracks()
     changeset = Tasktracker.Social.change_task(%Tasktracker.Social.Task{})
-    render conn, "feed.html", tasks: tasks, changeset: changeset
+    render conn, "feed.html", tracks: tracks, tasks: tasks, changeset: changeset
+  end
+  def assignments(conn, _params) do
+
+    tracks = Tasktracker.Tracker.list_tracks()
+    changeset = Tasktracker.Social.change_task(%Tasktracker.Social.Task{})
+    render conn, "assignments.html", tracks: tracks, changeset: changeset
   end
 
 end

@@ -1,0 +1,29 @@
+<%= if @current_user do %>
+
+
+<% end %>
+
+<h1>Tasks Assigned to you</h1>
+
+<%= Enum.map Enum.filter(@tracks,fn track -> track.user.id == @current_user.id end), fn track -> %>
+<div class="row">
+  <div class="col">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-title"><b>Created by: </b><i><%= track.task.user.name %></i></h6>
+        <p>
+          <div  class="alert alert-success">
+            <h5>Task: </h5>
+            <b>Title:</b>
+            <%= track.task.title %><br>
+            <b>Description: </b>
+            <%= track.task.description %>
+          </p>
+        </div>
+        <h6 class="card-title"><b>Assigned to : </b><i> todo</i></h6>
+
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>
