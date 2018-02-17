@@ -6,24 +6,37 @@
 <h1>Tasks Assigned to you</h1>
 
 <%= Enum.map Enum.filter(@tracks,fn track -> track.user.id == @current_user.id end), fn track -> %>
+
+<%= form_for @changeset, "/assign", fn f -> %>
+<div class="form-group">
+  <%= text_input f, :taskid, class: "form-control", value: track.task.id, type: "hidden" %>
+</div>
+
 <div class="row">
   <div class="col">
-    <div class="card">
-      <div class="card-body">
-        <h6 class="card-title"><b>Created by: </b><i><%= track.task.user.name %></i></h6>
-        <p>
-          <div  class="alert alert-success">
-            <h5>Task: </h5>
-            <b>Title:</b>
-            <%= track.task.title %><br>
-            <b>Description: </b>
-            <%= track.task.description %>
-          </p>
+    <div class="card  border-dark mb-3">
+      <div class="card-header">
+        <div class="float-left"><b>Created by: </b><i><%= track.task.user.name %></i></div>
+        <div class="float-right"> Status:
+          <%= if track.task.completed do %> Completed <%= else %> Open <%= end %>
         </div>
-        <h6 class="card-title"><b>Assigned to : </b><i> todo</i></h6>
-
       </div>
+      <div class="card-body">
+        <h6 class="card-title"><b>Title:</b> <%= track.task.title %></h6>
+        <h6 class="card-title"><b>Description:</b><%= track.task.description %></h6>
+      </div>
+      <div class="card-footer"><b> Assigned to:</b>
+        <%= for tracka <- @tracks do %>
+        <%= if tracka.task_id==track.task.id do %>
+        <%=  tracka.user.name %>,
+        <%= end %>
+        <%= end %>
+        <br><b> Add more Assignees: </b>
+        <button type="submit" class="btn btn-sm btn-outline-dark">+ add</button>
+      </div>
+      <% end %>
     </div>
   </div>
 </div>
+
 <% end %>

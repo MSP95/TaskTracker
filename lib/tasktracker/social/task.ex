@@ -5,6 +5,7 @@ defmodule Tasktracker.Social.Task do
 
 
   schema "tasks" do
+    field :completed, :boolean, default: false
     field :description, :string
     field :title, :string
     belongs_to :user, Tasktracker.Accounts.User
@@ -15,7 +16,7 @@ defmodule Tasktracker.Social.Task do
   @doc false
   def changeset(%Task{} = task, attrs) do
     task
-    |> cast(attrs, [:title, :description, :user_id])
-    |> validate_required([:title, :description, :user_id])
+    |> cast(attrs, [:title, :description, :completed, :user_id])
+    |> validate_required([:title, :description, :completed, :user_id])
   end
 end
