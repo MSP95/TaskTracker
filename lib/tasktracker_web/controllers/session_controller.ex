@@ -13,7 +13,7 @@ defmodule TasktrackerWeb.SessionController do
       |> redirect(to: page_path(conn, :feed))
     else
       conn
-      |> put_flash(:error, "Can't create session")
+      |> put_flash(:error, "Can't create session, Invalid username.")
       |> redirect(to: page_path(conn, :index))
     end
   end
@@ -21,7 +21,7 @@ defmodule TasktrackerWeb.SessionController do
   def delete(conn, _params) do
     conn
     |> delete_session(:user_id)
-    |> put_flash(:info, "Logged out")
+    |> put_flash(:info, "Logged out successfully")
     |> redirect(to: page_path(conn, :index))
   end
 end

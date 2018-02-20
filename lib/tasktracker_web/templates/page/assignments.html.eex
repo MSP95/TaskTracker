@@ -10,12 +10,8 @@
     <%= link "Create New Task", to: task_path(@conn, :new), class: "nav-link" %>
   </li>
 </ul>
-
 <h1>Tasks Assigned to you</h1>
-
-<%= Enum.map Enum.filter(@tasks,fn task -> task.assigned_id == @current_user.id end),
-fn task -> %>
-
+<%= Enum.map Enum.filter(@tasks,fn task -> task.assigned_id == @current_user.id end),fn task -> %>
 <div class="row">
   <div class="col">
     <div class="card border-dark mb-3">
@@ -27,7 +23,6 @@ fn task -> %>
           <%= else %>
           Anonymous
           <%= end %>
-
         </div>
         <div class="float-right"> Status:
           <%= if task.completed do %> Completed <%= else %> Open <%= end %>
@@ -35,7 +30,7 @@ fn task -> %>
           <%= link "Change Status",
           to: task_path(@conn, :edit, task,context: "status"),
           class: "btn btn-outline-dark btn-sm" %>
-           <%= end %>
+          <%= end %>
         </div>
       </div>
       <div class="card-body">
@@ -50,8 +45,6 @@ fn task -> %>
           method: :delete, data: [confirm: "Are you sure?"],
           class: "btn btn-danger btn-sm" %>
           <% end %>
-
-
         </div>
         <h6 class="card-title"><b>Title:</b> <%= task.title %></h6>
         <h6 class="card-title"><b>Description:</b><br/><%= task.description %></h6>
@@ -64,13 +57,12 @@ fn task -> %>
           <%= else %>
           No one Yet
           <%= end %>
-            <%= if task.user_id == @current_user.id do %>
+          <%= if task.user_id == @current_user.id do %>
           <%= link "Change Assignee",
           to: task_path(@conn, :edit, task,context: "assign"),
           class: "btn btn-outline-dark btn-sm" %>
           <%= end %>
         </div>
-
         <div class="float-right"> Time Taken:
           <%= task.timetrack %> minutes
         </div>
