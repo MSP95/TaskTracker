@@ -12,7 +12,7 @@ if [ $PWD != $GIT_PATH ]; then
 fi
 
 if [ $USER != "tasks1" ]; then
-	echo "Error: must run as user 'memory'"
+	echo "Error: must run as user 'tasks1'"
 	echo "  Current user is $USER"
 	exit 2
 fi
