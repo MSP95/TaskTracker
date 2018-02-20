@@ -20,17 +20,17 @@
           <b>Created by: </b>
           <%= if task.user != nil do %>
           <%= task.user.name %>
-          <%= else %>
+          <% else %>
           Anonymous
-          <%= end %>
+          <% end %>
         </div>
         <div class="float-right"> Status:
-          <%= if task.completed do %> Completed <%= else %> Open <%= end %>
+          <%= if task.completed do %> Completed <% else %> Open <% end %>
           <%= if task.assigned_id == @current_user.id or task.user_id == @current_user.id do %>
           <%= link "Change Status",
           to: task_path(@conn, :edit, task,context: "status"),
           class: "btn btn-outline-dark btn-sm" %>
-          <%= end %>
+          <% end %>
         </div>
       </div>
       <div class="card-body">
@@ -54,14 +54,14 @@
           <b> Assigned to:</b>
           <%= if task.assigned != nil do %>
           <%= task.assigned.name %>
-          <%= else %>
+          <% else %>
           No one Yet
-          <%= end %>
+          <% end %>
           <%= if task.user_id == @current_user.id do %>
           <%= link "Change Assignee",
           to: task_path(@conn, :edit, task,context: "assign"),
           class: "btn btn-outline-dark btn-sm" %>
-          <%= end %>
+          <% end %>
         </div>
         <div class="float-right"> Time Taken:
           <%= task.timetrack %> minutes

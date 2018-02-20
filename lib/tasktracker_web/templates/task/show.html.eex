@@ -31,9 +31,9 @@
     <strong>Assigned to:</strong>
     <%= if @task.assigned_id != nil do %>
     <%= @task.assigned.name %>
-    <%= else %>
+    <% else %>
     No One Yet
-    <%= end %>
+    <% end %>
   </li>
   <li>
     <strong>Time taken:</strong>
