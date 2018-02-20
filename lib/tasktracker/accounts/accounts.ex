@@ -1,4 +1,5 @@
 defmodule Tasktracker.Accounts do
+
   @moduledoc """
   The Accounts context.
   """
@@ -14,7 +15,7 @@ defmodule Tasktracker.Accounts do
   def get_user_by_name(name) do
     Repo.get_by(User, name: name)
   end
-  
+
 
   @doc """
   Returns the list of users.

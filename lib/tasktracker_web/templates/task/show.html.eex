@@ -1,5 +1,16 @@
-<h2>Show Task</h2>
 
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <%= link "All Tasks", to: page_path(@conn, :feed), class: "nav-link" %>
+  </li>
+  <li class="nav-item">
+    <%= link "Tasks Assigned to you", to: page_path(@conn, :assignments), class: "nav-link" %>
+  </li>
+  <li class="nav-item">
+    <%= link "Create New Task", to: task_path(@conn, :new), class: "nav-link" %>
+  </li>
+</ul>
+<h1>Show Task</h1>
 <ul>
 
   <li>
@@ -16,8 +27,18 @@
     <strong>Completed:</strong>
     <%= @task.completed %>
   </li>
-
+  <li>
+    <strong>Assigned to:</strong>
+    <%= if @task.assigned_id != nil do %>
+    <%= @task.assigned.name %>
+    <%= else %>
+    No One Yet
+    <%= end %>
+  </li>
+  <li>
+    <strong>Time taken:</strong>
+    <%= @task.timetrack %> minutes
+  </li>
 </ul>
 
-<span><%= link "Edit", to: task_path(@conn, :edit, @task) %></span>
-<span><%= link "Back", to: task_path(@conn, :index) %></span>
+<span><%= link "Back", to: page_path(@conn, :feed) %></span>

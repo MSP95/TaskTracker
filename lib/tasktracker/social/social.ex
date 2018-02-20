@@ -20,6 +20,7 @@ defmodule Tasktracker.Social do
   def list_tasks do
     Repo.all(Task)
     |> Repo.preload(:user)
+    |> Repo.preload(:assigned)
   end
 
   @doc """
@@ -39,6 +40,7 @@ defmodule Tasktracker.Social do
   def get_task!(id) do
     Repo.get!(Task, id)
     |> Repo.preload(:user)
+    |> Repo.preload(:assigned)
   end
 
   @doc """
@@ -72,6 +74,8 @@ defmodule Tasktracker.Social do
 
   """
   def update_task(%Task{} = task, attrs) do
+    IO.inspect attrs
+    IO.inspect task
     task
     |> Task.changeset(attrs)
     |> Repo.update()

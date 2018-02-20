@@ -13,34 +13,42 @@
 
 <body>
 
-  <div class="row container-fluid navbar">
-    <div class="col-6"><h1 class="float-left">Task Tracker</h1></div>
-    <div class="col-6">
-      <div class="float-right">
-        <%= if @current_user do %>
+  <div class="container-fluid">
+    <br/>
+    <div class="row">
+      <div class="col"><h1 class="float-left">Task Tracker</h1></div>
+      <div class="col">
+        <div class="float-right">
+          <div class="btn-group d-flex">
+            <%= if @current_user do %>
+            <div class="btn btn-info">
+              Logged in as: <%= @current_user.name %></div>
 
-        Logged in as: <%= @current_user.name %> |
-        <%= link "Log Out", to: "/session", method: :delete %>
+              <%= link "Log Out", to: "/session", method: :delete, class: "btn btn-secondary" %>
+              <%= link "Delete Account", to: user_path(@conn, :delete, @current_user.id), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger" %>
 
-        <% else %>
-        <p>Not logged in.</p>
-        <% end %>
+
+              <% else %>
+              <div class="btn btn-info">Not logged in.</div>
+              <% end %>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-  <hr>
-  <div class="container">
-    <%= if get_flash(@conn, :info) do %>
-    <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-    <% end %>
-    <%= if get_flash(@conn, :error) do %>
-    <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
-    <% end %>
-    <main role="main">
-      <%= render @view_module, @view_template, assigns %>
-    </main>
+    <hr>
+    <div class="container">
+      <%= if get_flash(@conn, :info) do %>
+      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
+      <% end %>
+      <%= if get_flash(@conn, :error) do %>
+      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+      <% end %>
+      <main role="main">
+        <%= render @view_module, @view_template, assigns %>
+      </main>
 
-  </div> <!-- /container -->
-  <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
-</body>
-</html>
+    </div> <!-- /container -->
+    <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+  </body>
+  </html>

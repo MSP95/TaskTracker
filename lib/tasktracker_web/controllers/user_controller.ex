@@ -4,11 +4,6 @@ defmodule TasktrackerWeb.UserController do
   alias Tasktracker.Accounts
   alias Tasktracker.Accounts.User
 
-  def index(conn, _params) do
-    users = Accounts.list_users()
-    render(conn, "index.html", users: users)
-  end
-
   def new(conn, _params) do
     changeset = Accounts.change_user(%User{})
     render(conn, "new.html", changeset: changeset)
@@ -50,11 +45,14 @@ defmodule TasktrackerWeb.UserController do
   end
 
   def delete(conn, %{"id" => id}) do
+
     user = Accounts.get_user!(id)
+    conn
+    |> delete_session(id)
     {:ok, _user} = Accounts.delete_user(user)
 
     conn
     |> put_flash(:info, "User deleted successfully.")
-    |> redirect(to: user_path(conn, :index))
+    |> redirect(to: page_path(conn, :index))
   end
 end
