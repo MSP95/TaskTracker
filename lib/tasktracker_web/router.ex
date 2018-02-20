@@ -25,7 +25,6 @@ defmodule TasktrackerWeb.Router do
     delete "/session", SessionController, :delete
     get "/feed", PageController, :feed
     get "/assignments", PageController, :assignments
-    resources "/tracks", TrackController
   end
 
   # Other scopes may use custom stacks.
