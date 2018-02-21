@@ -7,8 +7,14 @@
 ***
 
 ## Design choices:
-1. Users can __register__ and __login__ by their usernames.
+1. Users can __register__ and __login__ by their usernames. Username should be unique while registering a user.
  * No passwords yet.
+2. __Features:__ 
+    - Feed, which includes all the tasks present.
+    - Assigned Tasks, which includes the tasks assigned to the user logged in.
+    - Create task, which allows to users to create a task entering title, description, and a assignee.
+    - Tracking time for each task assigned to a user(In 15 minute intervals).
+    - Marking a task as complete.
 2. __Privileges:__
  * Users can only edit a task content if they created that task or are assigned
   to that task.
