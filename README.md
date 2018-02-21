@@ -19,10 +19,11 @@
     - Dedicated button to easily mark a task as complete.
  * Creator of a task can assign that task to any user
        via __change Assignee__ button.
-       - Dedicated button to easily assign a task.
-3. Users can track the time on a task by inserting number of minutes taken in 15 minute  time intervals.  
+    - Dedicated button to easily assign a task.
+3. Users can track the time on a task by inserting number of minutes taken in 15 minute time intervals.  
 4. If a User is deleted, all the tasks owned by that user becomes Anonymous.
   and all the tasks assigned to that users becomes unassigned tasks.
+  
 ***
 
 ## To start your Phoenix server:
