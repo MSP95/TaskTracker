@@ -96,8 +96,7 @@ $(init_manage);
 function update_time_button() {
   $('.time-button').each( (_, bb) => {
     let block_id = $(bb).data('block-id');
-    // let manage = $(bb).data('manage');
-    // console.log(block_id);
+
     if (block_id == "") {
       $(bb).text("Start");
     }
@@ -110,9 +109,9 @@ function update_time_button() {
 
 
 function set_time_button(value) {
-  // console.log(value);
+
   $('.time-button').data('block-id', value);
-  // console.log($('.time-button').data('block-id'));
+
 
   update_time_button();
 }
@@ -157,20 +156,19 @@ function start_clock(task_id) {
     contentType: "application/json; charset=UTF-8",
     data: text,
     success: (resp) => {
-      // console.log("inserted bitches")
+
       set_time_button(resp.data.id);
-      // update_time_button();
-      // set_time_button(task_id, "");
+
     },
   });
 }
 
 function start_click(ev) {
   let btn = $(ev.target);
-  // let end_time = btn.data('end_time');
+
   let block_id = btn.data('block-id');
   let task_id = btn.data('task-id');
-  // console.log(block_id == "")
+
   if (block_id == "") {
     start_clock(task_id);
   }
@@ -185,7 +183,7 @@ function init_time() {
     return;
   }
   $(".time-button").click(start_click);
-  // let block_id = btn.data('block-id');
+
   update_time_button();
 }
 
