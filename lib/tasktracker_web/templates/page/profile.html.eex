@@ -1,0 +1,35 @@
+
+
+<h2 class="card card-body alert alert-warning">
+<%= if @manager do %>
+Your Manager Name: <%= @manager.name %>
+<% else %>
+No Manager yet
+<% end %></h2>
+<div class="card card-body">
+<h2>List of People You Manage:</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for user <- Enum.filter(@users, &(nil != @manages[&1.id])) do %>
+
+    <tr>
+
+      <td><%= user.name %></td>
+
+      <td class="text-right">
+        <span><%= link "Show", to: user_path(@conn, :show, user), class: "btn btn-default btn-xs" %></span>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+<!-- <span><%= link "New User", to: user_path(@conn, :new) %></span> -->

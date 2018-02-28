@@ -1,0 +1,77 @@
+<h1> Your Task: </h1>
+<script>
+window.timeblock_path = "<%= timeblock_path(@conn, :index) %>";
+window.current_user_id = "<%= @current_user.id %>";
+</script>
+<h2> Title: <%= @task.title %> </h2>
+
+<div class="card card-body">
+  <h3>Timer:</h3>
+  <button class="time-button btn btn-primary"
+  data-task-id= "<%= @task.id %>"
+  data-block-id= "<%= @timeblock["blockid"] %>">
+  timer loading  </button>
+</div>
+<div class="card card-body">
+  <h3>Add a time block:</h3>
+  <%= form_for @changeset, timeblock_path(@conn, :create, %{:context => "html"}), fn f -> %>
+    <%= text_input f, :user_id,value: @current_user.id, type: "hidden" %>
+    <%= text_input f, :task_id,value: @task.id, type: "hidden" %>
+  <div class="form-group">
+    <%= label f, :start_time, class: "control-label" %>
+    <%= text_input(f, :start_time, class: "form-control", placeholder: "eg: 2018-02-28T02:58:02.752", required: true) %>
+    <%= error_tag f, :start_time %>
+  </div>
+  <div class="form-group">
+    <%= label f, :end_time, class: "control-label" %>
+    <%= text_input(f, :end_time, class: "form-control", placeholder: "eg: 2018-02-28T02:58:02.752", required: true) %>
+    <%= error_tag f, :end_time %>
+  </div>
+
+  <div class="form-group">
+    <%= submit "Submit", class: "btn btn-primary" %>
+  </div>
+  <% end %>
+</div>
+
+<div class="card card-body">
+<h3>Previous History</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Added by</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Edit</th>
+      </tr>
+    </thead>
+    <tbody>
+    <%= Enum.map Enum.filter(@timeblocks,fn block -> block.task_id == @task.id end), fn block -> %>
+    <tr>
+      <td>
+        <%= block.user.name %>
+      </td>
+      <td>
+        <%= block.start_time %>
+      </td>
+      <td>
+        <%= block.end_time %>
+      </td>
+
+      <td>
+      <%= link "Edit",
+      to: page_path(@conn, :editblock, %{"block"=>block}),
+      class: "btn btn-dark btn-sm" %>
+      <%= link "Delete",
+      to: timeblock_path(@conn, :delete, block),
+      method: :delete, data: [confirm: "Are you sure?"],
+      class: "btn btn-danger btn-sm" %>
+
+
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+</div>

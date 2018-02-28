@@ -1,14 +1,4 @@
-<ul class="nav nav-tabs">
-  <li class="nav-item">
-    <%= link "All Tasks", to: page_path(@conn, :feed), class: "nav-link" %>
-  </li>
-  <li class="nav-item">
-    <%= link "Tasks Assigned to you", to: page_path(@conn, :assignments), class: "nav-link" %>
-  </li>
-  <li class="nav-item">
-    <%= link "Create New Task", to: task_path(@conn, :new), class: "nav-link active" %>
-  </li>
-</ul>
+
 <h1>New Task</h1>
 
 <%= render "form.html", Map.put(assigns, :action, task_path(@conn, :create)) %>

@@ -1,0 +1,25 @@
+<h2>Tasks Report</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Creator</th>
+      <th>Assigned To</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for task <- @tasks do %>
+    <tr>
+      <td><%= task.title %></td>
+      <td><%= task.creator.name %></td>
+      <td><%= task.assigned.name %></td>
+      <td><%= task.completed %></td>
+
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<!-- <span><%= link "New Task", to: task_path(@conn, :new) %></span> -->

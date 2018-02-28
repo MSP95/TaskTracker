@@ -1,74 +1,72 @@
 <%= if @current_user do %>
-<ul class="nav nav-tabs">
-  <li class="nav-item">
-    <%= link "All Tasks", to: page_path(@conn, :feed), class: "nav-link" %>
-  </li>
-  <li class="nav-item">
-    <%= link "Tasks Assigned to you", to: page_path(@conn, :assignments), class: "nav-link active" %>
-  </li>
-  <li class="nav-item">
-    <%= link "Create New Task", to: task_path(@conn, :new), class: "nav-link" %>
-  </li>
-</ul>
+
 <h1>Tasks Assigned to you</h1>
 <%= Enum.map Enum.filter(@tasks,fn task -> task.assigned_id == @current_user.id end),fn task -> %>
 <div class="row">
   <div class="col">
-    <div class="card border-dark mb-3">
-      <div class="card-header">
-        <div class="float-left">
-          <b>Created by: </b>
-          <%= if task.user != nil do %>
-          <%= task.user.name %>
-          <% else %>
-          Anonymous
-          <% end %>
+    <%= if task.completed do %>
+    <div class="card border-dark mb-3 alert-success">
+      <% else %>
+      <div class="card border-dark mb-3">
+        <% end %>
+        <div class="card-header">
+          <div class="float-left">
+            <b>Created by: </b>
+            <%= if task.creator != nil do %>
+            <%= task.creator.name %>
+            <% else %>
+            Anonymous
+            <% end %>
+          </div>
+          <div class="float-right"> Status:
+            <%= if task.completed do %> Completed <% else %> Open <% end %>
+            <%= if task.assigned_id == @current_user.id or task.creator_id == @current_user.id do %>
+            <%= link "Change Status",
+            to: task_path(@conn, :edit, task,context: "status"),
+            class: "btn btn-outline-dark btn-sm" %>
+            <% end %>
+          </div>
         </div>
-        <div class="float-right"> Status:
-          <%= if task.completed do %> Completed <% else %> Open <% end %>
-          <%= if task.assigned_id == @current_user.id or task.user_id == @current_user.id do %>
-          <%= link "Change Status",
-          to: task_path(@conn, :edit, task,context: "status"),
+        <div class="card-body">
+          <div class="float-right btn-group">
+            <%= link "View", to: task_path(@conn, :show, task), class: "btn btn-success btn-sm" %>
+            <%= if task.assigned_id == @current_user.id or task.creator_id == @current_user.id  do %>
+            <%= link "Edit",
+            to: task_path(@conn, :edit, task,context: "edit"),
+            class: "btn btn-dark btn-sm" %>
+            <%= link "Delete",
+            to: task_path(@conn, :delete, task),
+            method: :delete, data: [confirm: "Are you sure?"],
+            class: "btn btn-danger btn-sm" %>
+            <% end %>
+          </div>
+          <h6 class="card-title"><b>Title:</b> <%= task.title %></h6>
+          <h6 class="card-title"><b>Description:</b><br/><%= task.description %></h6>
+        </div>
+        <div class="card-footer">
+          <div class="float-left">
+            <b> Assigned to:</b>
+            <%= if task.assigned != nil do %>
+            <%= task.assigned.name %>
+            <% else %>
+            No one Yet
+            <% end %>
+            <%= if task.creator_id == @current_user.id do %>
+            <%= link "Change Assignee",
+            to: task_path(@conn, :edit, task,context: "assign"),
+            class: "btn btn-outline-dark btn-sm" %>
+            <% end %>
+          </div>
+          <%= if task.assigned_id == @current_user.id do %>
+        <div class="float-right">
+          <%= link "Add Time session",
+          to: page_path(@conn, :timeblocks, task: task),
           class: "btn btn-outline-dark btn-sm" %>
-          <% end %>
         </div>
-      </div>
-      <div class="card-body">
-        <div class="float-right btn-group">
-          <%= link "View", to: task_path(@conn, :show, task), class: "btn btn-success btn-sm" %>
-          <%= if task.assigned_id == @current_user.id or task.user_id == @current_user.id  do %>
-          <%= link "Edit",
-          to: task_path(@conn, :edit, task,context: "edit"),
-          class: "btn btn-dark btn-sm" %>
-          <%= link "Delete",
-          to: task_path(@conn, :delete, task),
-          method: :delete, data: [confirm: "Are you sure?"],
-          class: "btn btn-danger btn-sm" %>
-          <% end %>
-        </div>
-        <h6 class="card-title"><b>Title:</b> <%= task.title %></h6>
-        <h6 class="card-title"><b>Description:</b><br/><%= task.description %></h6>
-      </div>
-      <div class="card-footer">
-        <div class="float-left">
-          <b> Assigned to:</b>
-          <%= if task.assigned != nil do %>
-          <%= task.assigned.name %>
-          <% else %>
-          No one Yet
-          <% end %>
-          <%= if task.user_id == @current_user.id do %>
-          <%= link "Change Assignee",
-          to: task_path(@conn, :edit, task,context: "assign"),
-          class: "btn btn-outline-dark btn-sm" %>
-          <% end %>
-        </div>
-        <div class="float-right"> Time Taken:
-          <%= task.timetrack %> minutes
+        <% end %>
         </div>
       </div>
     </div>
   </div>
-</div>
-<% end %>
-<% end %>
+  <% end %>
+  <% end %>

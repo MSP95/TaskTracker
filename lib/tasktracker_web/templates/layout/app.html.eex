@@ -19,38 +19,65 @@
       <div class="col"><h1 class="float-left">Task Tracker</h1></div>
       <div class="col">
         <div class="float-right">
-          <div class="btn-group d-flex">
+          <div class="btn-group">
             <%= if @current_user do %>
-            <div class="btn btn-info">
+            <div class="btn btn-outline-dark">
               Logged in as: <%= @current_user.name %>
             </div>
-            <%= link "Log Out", to: "/session", method: :delete, class: "btn btn-secondary" %>
-            <%= link "Delete Account",
-            to: user_path(@conn, :delete, @current_user.id),
-            method: :delete,
-            data: [confirm: "Are you sure?"],
-            class: "btn btn-danger" %>
-            <% else %>
-            <div class="btn btn-info">Not logged in.</div>
-            <% end %>
+            <%= link "Log Out", to: "/session", method: :delete, class: "btn btn-outline-dark" %>
           </div>
+
+          <% else %>
+          <div class="btn btn-info">Not logged in.</div>
+          <% end %>
+
         </div>
       </div>
     </div>
-  </div>
-  <hr>
-  <div class="container">
-    <%= if get_flash(@conn, :info) do %>
-    <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-    <% end %>
-    <%= if get_flash(@conn, :error) do %>
-    <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
-    <% end %>
-    <main>
-      <%= render @view_module, @view_template, assigns %>
-    </main>
+    <%= if @current_user do %>
+    <div class="row bg-dark">
+      <div class="col">
+        <ul class="nav">
+          <li class="nav-item">
+            <%= link "Feed", to: page_path(@conn, :feed), class: "text-light nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link "Assignments", to: page_path(@conn, :assignments), class: "text-light nav-link" %>
+          </li>
 
-  </div> <!-- /container -->
-  <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
-</body>
-</html>
+          <li class="nav-item">
+            <%= link "All users", to: user_path(@conn, :index, %{ context: ""}), class: "text-light nav-link" %>
+          </li>
+
+          <li class="nav-item">
+            <%= link "Task Report", to: page_path(@conn, :taskreport), class: "text-light  nav-link" %>
+          </li>
+        </ul></div>
+        <div class="col">
+          <!-- <div class="float-right" > -->
+          <ul class="nav float-right">
+            <li  class="nav-item"><%= link "+ Create New Task", to: task_path(@conn, :new), class: "text-light nav-link" %></li>
+            <li  class="nav-item"><%= link "Profile", to: page_path(@conn, :profile), class: "text-light nav-link" %></li>
+          </ul>
+          <!-- </div> -->
+        </div>
+      </div>
+      <% end %>
+    </div>
+
+    <br>
+    <div class="container">
+      <%= if get_flash(@conn, :info) do %>
+      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
+      <% end %>
+      <%= if get_flash(@conn, :error) do %>
+      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+      <% end %>
+      <main>
+        <%= render @view_module, @view_template, assigns %>
+      </main>
+
+    </div> <!-- /container -->
+    <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+  </body>
+  </html>

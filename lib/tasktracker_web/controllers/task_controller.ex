@@ -6,16 +6,20 @@ defmodule TasktrackerWeb.TaskController do
   alias Tasktracker.Accounts
 
   def new(conn, _params) do
-    users = Accounts.list_users()
+    # users = Accounts.list_users()
+    current_user = conn.assigns[:current_user]
+    users = Social.get_clients(current_user)
     changeset = Social.change_task(%Task{})
     render(conn, "new.html", users: users, changeset: changeset)
   end
 
   def create(conn, %{"task" => task}) do
-    users = Accounts.list_users()
-    current_user =  Integer.to_string(conn.assigns.current_user.id)
-    task = Map.put(task, "user_id",current_user)
-    task = Map.put(task, "timetrack","0")
+    # users = Accounts.list_users()
+    current_user = conn.assigns[:current_user]
+    users = Social.get_clients(current_user)
+    # current_user =  Integer.to_string(conn.assigns.current_user.id)
+    task = Map.put(task, "creator_id",current_user.id)
+    # task = Map.put(task, "timetrack","0")
     case Social.create_task(task) do
       {:ok, task} ->
         conn
@@ -32,7 +36,9 @@ defmodule TasktrackerWeb.TaskController do
   end
 
   def edit(conn, %{"id" => id, "context" => context}) do
-    users = Accounts.list_users()
+    # users = Accounts.list_users()
+    current_user = conn.assigns[:current_user]
+    users = Social.get_clients(current_user)
     task = Social.get_task!(id)
     changeset = Social.change_task(task)
     case context do
@@ -46,6 +52,9 @@ defmodule TasktrackerWeb.TaskController do
   def update(conn, %{"id" => id, "task" => task_params}) do
     task = Social.get_task!(id)
     users = Accounts.list_users()
+    # asignee = Accounts.get_user(task_params["assigned_id"])
+    # manager = Social.get_manager(asignee)
+    # Map.put(task_params,"creator_id",manager.id)
     case Social.update_task(task, task_params) do
       {:ok, task} ->
         conn
