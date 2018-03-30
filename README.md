@@ -1,6 +1,6 @@
 
 
-## Task Tracker Web Application
+## Third version of Task Tracker Web Application
 
 * Technologies: ReactJS, Elixir, Phoenix Framework, postgres
 
@@ -9,7 +9,7 @@
 ## Design choices:
 1. Users can __register__ and __login__ by their usernames. Username should be unique while registering a user.
  * No passwords yet.
-2. __Features:__ 
+2. __Features:__
     - Feed, which includes all the tasks present.
     - Assigned Tasks, which includes the tasks assigned to the user logged in.
     - Create task, which allows to users to create a task entering title, description, and a assignee.
@@ -29,7 +29,7 @@
 4. Users can track the time on a task by inserting number of minutes taken in 15 minute time intervals.  
 5. If a User is deleted, all the tasks owned by that user becomes Anonymous.
   and all the tasks assigned to that users becomes unassigned tasks.
-  
+
 ***
 
 ## To start your Phoenix server:
